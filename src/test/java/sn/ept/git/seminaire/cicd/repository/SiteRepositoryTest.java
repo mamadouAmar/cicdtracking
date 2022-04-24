@@ -44,22 +44,12 @@ public class SiteRepositoryTest extends RepositoryBaseTest {
     @BeforeAll
     static  void beforeAll() {
         dto = SiteDTOTestData.defaultDTO();
-        societeDTO = SocieteDTOTestData.defaultDTO();
-        societeDTO.setId(dto.getSociete().getId());
-        dto.setSociete(societeDTO);
-        System.out.println("Societe id " +societeDTO.getId());
-        System.out.println("societe dans site id " + dto.getSociete().getId());
     }
 
     @BeforeEach
     void setUp() {
         repository.deleteAll();
-        societeRepository.deleteAll();
-        societeEntity = societeMapper.asEntity(societeDTO);
         entity = mapper.asEntity(dto);
-        System.out.println(societeEntity.getId());
-        System.out.println(entity.getSociete().getId());
-        societeEntity = societeRepository.saveAndFlush(societeEntity);
         entity = repository.saveAndFlush(entity);
     }
 

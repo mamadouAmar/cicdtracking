@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import sn.ept.git.seminaire.cicd.data.SocieteVMTestData;
 import sn.ept.git.seminaire.cicd.data.TestData;
 import sn.ept.git.seminaire.cicd.dto.SocieteDTO;
@@ -51,7 +52,7 @@ class SocieteResourceTest extends BasicResourceTest {
         mockMvc.perform(get(UrlMapping.Societe.ALL)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                //.andDo(MockMvcResultHandlers.print()) //can print request details
+                .andDo(MockMvcResultHandlers.print()) //can print request details
                 .andExpect(jsonPath("$.content", hasSize(1)))
                 .andExpect(jsonPath("$.content.[0].id").exists())
                 .andExpect(jsonPath("$.content.[0].version").exists())

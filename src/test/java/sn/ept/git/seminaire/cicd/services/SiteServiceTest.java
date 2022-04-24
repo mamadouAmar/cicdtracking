@@ -46,23 +46,16 @@ public class SiteServiceTest extends ServiceBaseTest {
     static SiteVM vm;
     SiteDTO dto;
 
-    SocieteDTO societeDTO;
-
-    static SocieteVM societeVM;
-
     @Autowired
     ISocieteService societeService;
 
     @BeforeAll
     static void beforeAll(){
         vm = SiteVMTestData.defaultVM();
-        societeVM = SocieteVMTestData.defaultVM();
-        vm.setIdSociete(societeVM.getId());
     }
 
     @Test
     void save_shouldSaveSite() {
-        societeDTO = societeService.save(societeVM);
         dto = service.save(vm);
         assertThat(dto)
                 .isNotNull()
