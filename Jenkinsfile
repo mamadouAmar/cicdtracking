@@ -101,7 +101,12 @@ pipeline {
             }
             }
         }
-        stage('Quality gate') {
+        
+        
+        stage('Paralel'){
+            parallel{
+
+                stage('Quality gate') {
             steps {
                 
                 echo 'tester si le résultat passe le seuil....'
@@ -111,9 +116,6 @@ pipeline {
         }
         }
 
-        
-        stage('Paralel'){
-            parallel{
        
         
         
