@@ -23,7 +23,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'building..'
-                bat 'mvn clean package'
+                bat 'mvn clean package -DskipTests'
             }
 
        }
@@ -45,7 +45,9 @@ pipeline {
                     script {
                     
                        
-                        bat "mvn install -DskipTests"
+                        bat "mvn package -DskipTests"
+
+                        nexusArtifactUploader artifacts: [[artifactId: 'tracking', classifier: '', file: 'target/tracking.war', type: 'war']], credentialsId: 'nexus', groupId: 'sn.ept.git.seminaire.cicd', nexusUrl: 'localhost:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'maven-releases', version: '0..0.1'
                       /*  // Read POM xml file using 'readMavenPom' step , this step 'readMavenPom' is included in: https://plugins.jenkins.io/pipeline-utility-steps
                         pom = readMavenPom file: "pom.xml";
                         // Find built artifact under target folder
