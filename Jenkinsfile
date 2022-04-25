@@ -101,7 +101,7 @@ pipeline {
         }
         stage('Quality gate') {
             steps {
-                timeout(time: 0.05, unit: 'HOURS') {
+                timeout(time: 1, unit: 'HOURS') {
                 echo 'tester si le résultat passe le seuil....'
                 waitForQualityGate abortPipeline: true
             
