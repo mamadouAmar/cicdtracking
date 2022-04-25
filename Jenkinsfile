@@ -92,11 +92,6 @@ pipeline {
                 }
         }
 
-        
-        stage('Paralel'){
-            parallel{
-       
-        
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('sonar') {
@@ -113,6 +108,13 @@ pipeline {
                 }
         }
         }
+
+        
+        stage('Paralel'){
+            parallel{
+       
+        
+        
         stage('Deploy DEV') {
         when {
                         branch 'develop'
