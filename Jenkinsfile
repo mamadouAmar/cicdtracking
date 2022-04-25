@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        
+
         maven 'Maven'
         jdk 'java11'
     }
@@ -29,13 +29,13 @@ pipeline {
 
        }
 
-       stage('Test') {
+       /*stage('Test') {
             steps {
                 echo 'testing..'
                 bat 'mvn test'
             }
 
-       }
+       }*/
         
          stage('Install on nexus') {
             
