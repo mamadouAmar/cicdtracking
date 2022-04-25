@@ -121,9 +121,7 @@ pipeline {
         when {
                         branch 'develop'
                     }
-            options {
-                timeout(time: 10, unit: 'MINUTES')
-            }
+           
 
             steps {
                 echo 'si le build s\'effectue sur la banche main'
