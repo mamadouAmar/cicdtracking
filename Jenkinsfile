@@ -29,13 +29,13 @@ pipeline {
 
        }
 
-       /*stage('Test') {
+       stage('Test') {
             steps {
                 echo 'testing..'
                 bat 'mvn test'
             }
 
-       }*/
+       }
         
          stage('Install on nexus') {
             
@@ -142,7 +142,7 @@ pipeline {
          stage('Deploy REC') {
                     
                     when {
-                        branch 'main'
+                        branch 'release'
                     }
                     options {
                                     timeout(time: 10, unit: 'MINUTES')
