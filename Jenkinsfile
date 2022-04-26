@@ -65,15 +65,6 @@ pipeline {
         
         
 
-                stage('Quality gate') {
-            steps {
-                
-                echo 'tester si le résultat passe le seuil....'
-                waitForQualityGate abortPipeline: true
-    
-                
-        }
-        }
 
        
         
@@ -141,6 +132,17 @@ pipeline {
                 
             }
                   }
+
+                  
+                stage('Quality gate') {
+            steps {
+                
+                echo 'tester si le résultat passe le seuil....'
+                waitForQualityGate abortPipeline: true
+    
+                
+        }
+        }
     
         }
          post {
