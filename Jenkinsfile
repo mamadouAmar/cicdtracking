@@ -173,7 +173,7 @@ pipeline {
                 sleep(time:1,unit:"MINUTES") 
                 echo "Run test"
                 script {
-                    final String url = "http://localhost:8083/tracking-dev/"
+                    final String url = "http://localhost:8083/tracking-rec/"
 
                     final String response = bat(script: "curl -s $url", returnStdout: true).trim()
 
