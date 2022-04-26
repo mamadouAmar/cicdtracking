@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        
+
         maven 'Maven'
         jdk 'java11'
     }
@@ -126,31 +126,42 @@ pipeline {
                     }
            
 
-            steps {
-                echo 'si le build s\'effectue sur la banche main'
-                bat 'mvn deploy'
+            steps{
+                deploy adapters: [tomcat9(credentialsId: 'tomcatjenkins', path: '', url: 'http://localhost:8083')], contextPath: 'tracking-dev', war: '**/*.war'
+
             }
     }
         stage('Test deploy dev'){
                         when {
                             branch 'develop'
                         }
-                        steps{
-                            echo 'Déploiment sur dev success'
-                        }
+                        
+                         steps{
+                script{
+                    echo "testing if dev deployment is successfully done"
+                    sleep(time:1,unit:"MINUTES") 
+                    echo "Run test"
+                    final String url = "http://localhost:8083/tracking-dev/"
+                    final String response = sh(script: "curl -s $url", returnStdout: true).trim()
+                    echo response
+                    
+                }
+
+                
+            }
              }
          stage('Deploy REC') {
                     
                     when {
-                        branch 'main'
+                        branch 'release'
                     }
                     options {
                                     timeout(time: 10, unit: 'MINUTES')
                                 }
-                    steps {
-                        echo 'si le build s\'effectue sur la banche release'
-                        bat 'mvn deploy'
-                    }
+                     steps{
+                deploy adapters: [tomcat9(credentialsId: 'tomcatjenkins', path: '', url: 'http://localhost:8083')], contextPath: 'tracking-rec', war: '**/*.war'
+
+            }
             }
 
          stage('Test deploy rec'){
@@ -158,8 +169,19 @@ pipeline {
                         branch 'release'
                     }
                    steps{
-                        echo 'tester si le déploiment dans release s\'est bien passé'
-                    }
+                echo "testing if rec deployment is successfully done"
+                sleep(time:1,unit:"MINUTES") 
+                echo "Run test"
+                script {
+                    final String url = "http://localhost:8083/tracking-dev/"
+
+                    final String response = sh(script: "curl -s $url", returnStdout: true).trim()
+
+                    echo response
+                
+                }
+                
+            }
                   }
     }
         }}

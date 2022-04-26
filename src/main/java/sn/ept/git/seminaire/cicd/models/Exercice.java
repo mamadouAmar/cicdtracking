@@ -46,7 +46,9 @@ public class Exercice extends BaseEntity {
 
     @Where(clause = BaseEntity.CLAUSE)
     @NotNull
-    @ManyToOne
+    @ManyToOne(
+            cascade = CascadeType.ALL
+    )
     @JoinColumn(name = "id_societe")
     private Societe societe;
 

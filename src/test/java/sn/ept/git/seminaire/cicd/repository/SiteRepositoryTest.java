@@ -26,6 +26,7 @@ public class SiteRepositoryTest extends RepositoryBaseTest {
     private SiteMapper mapper;
     @Autowired
     private SiteRepository repository;
+
     @Autowired
     private SocieteRepository societeRepository;
 
@@ -43,65 +44,60 @@ public class SiteRepositoryTest extends RepositoryBaseTest {
     @BeforeAll
     static  void beforeAll() {
         dto = SiteDTOTestData.defaultDTO();
-        societeDTO = SocieteDTOTestData.defaultDTO();
-        dto.setSociete(societeDTO);
     }
 
     @BeforeEach
     void setUp() {
-        societeEntity = societeMapper.asEntity(societeDTO);
-        societeRepository.deleteAll();
-        societeEntity = societeRepository.saveAndFlush(societeEntity);
         repository.deleteAll();
         entity = mapper.asEntity(dto);
         entity = repository.saveAndFlush(entity);
     }
 
-//    @Test
-//    void FindByName_thenResult() {
-//        optionalSite = repository.findByName(entity.getName());
-//        assertThat(optionalSite)
-//                .isNotNull()
-//                .isPresent()
-//                .get()
-//                .usingRecursiveComparison()
-//                .isEqualTo(entity);
-//    }
-//
-//    @Test
-//    void FindByBadName_thenNotFound() {
-//        optionalSite = repository.findByName(UUID.randomUUID().toString());
-//        assertThat(optionalSite)
-//                .isNotNull()
-//                .isNotPresent();
-//    }
-//
-//    @Test
-//    void FindDeleted_thenNotFound() {
-//        entity.setDeleted(true);
-//        entity = repository.saveAndFlush(entity);
-//        optionalSite = repository.findByName(entity.getName());
-//        assertThat(optionalSite)
-//                .isNotNull()
-//                .isNotPresent();
-//    }
-//
-//    @Test
-//    void findByNameWithIdDifferent_thenResult() {
-//        optionalSite = repository.findByNameWithIdDifferent(entity.getName(),UUID.randomUUID());
-//        assertThat(optionalSite)
-//                .isNotNull()
-//                .isPresent()
-//                .get()
-//                .usingRecursiveComparison()
-//                .isEqualTo(entity);
-//    }
-//
-//    @Test
-//    void findByNameWithIdDifferent_withSameId_shouldReturnNoResult() {
-//        optionalSite = repository.findByNameWithIdDifferent(entity.getName(),entity.getId());
-//        assertThat(optionalSite)
-//                .isNotNull()
-//                .isNotPresent();
-//    }
+    @Test
+    void FindByName_thenResult() {
+        optionalSite = repository.findByName(entity.getName());
+        assertThat(optionalSite)
+                .isNotNull()
+                .isPresent()
+                .get()
+                .usingRecursiveComparison()
+                .isEqualTo(entity);
+    }
+
+    @Test
+    void FindByBadName_thenNotFound() {
+        optionalSite = repository.findByName(UUID.randomUUID().toString());
+        assertThat(optionalSite)
+                .isNotNull()
+                .isNotPresent();
+    }
+
+    @Test
+    void FindDeleted_thenNotFound() {
+        entity.setDeleted(true);
+        entity = repository.saveAndFlush(entity);
+        optionalSite = repository.findByName(entity.getName());
+        assertThat(optionalSite)
+                .isNotNull()
+                .isNotPresent();
+    }
+
+    @Test
+    void findByNameWithIdDifferent_thenResult() {
+        optionalSite = repository.findByNameWithIdDifferent(entity.getName(),UUID.randomUUID());
+        assertThat(optionalSite)
+                .isNotNull()
+                .isPresent()
+                .get()
+                .usingRecursiveComparison()
+                .isEqualTo(entity);
+    }
+
+    @Test
+    void findByNameWithIdDifferent_withSameId_shouldReturnNoResult() {
+        optionalSite = repository.findByNameWithIdDifferent(entity.getName(),entity.getId());
+        assertThat(optionalSite)
+                .isNotNull()
+                .isNotPresent();
+    }
 }

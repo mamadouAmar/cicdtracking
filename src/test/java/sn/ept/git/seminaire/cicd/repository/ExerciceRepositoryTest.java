@@ -23,43 +23,43 @@ public class ExerciceRepositoryTest extends RepositoryBaseTest{
     private ExerciceMapper mapper;
     @Autowired
     private ExerciceRepository repository;
-//
-//    static ExerciceDTO dto;
-//    Exercice entity;
-//    Optional<Exercice> optionalExercice;
-//
-//    @BeforeAll
-//    static void beforeAll() {
-//        dto = ExerciceDTOTestData.defaultDTO();
-//    }
-//
-//    @BeforeEach
-//    void setUp() {
-//        entity = mapper.asEntity(dto);
-//        repository.deleteAll();
-//        entity = repository.saveAndFlush(entity);
-//    }
-//
-//    @Test
-//    void FindByDates_thenResult() {
-//        optionalExercice = repository.findByDates(entity.getStart(), entity.getEnd());
-//        assertThat(optionalExercice)
-//                .isNotNull()
-//                .isPresent()
-//                .get()
-//                .usingRecursiveComparison()
-//                .isEqualTo(entity);
-//    }
-//
-//    @Test
-//    void FindByBadDates_thenNotFound() {
-//        optionalExercice = repository.findByDates(
-//                Instant.ofEpochSecond(UUID.randomUUID().timestamp()),
-//                Instant.ofEpochSecond(UUID.randomUUID().timestamp()));
-//        assertThat(optionalExercice)
-//                .isNotNull()
-//                .isNotPresent();
-//
-//    }
+
+    static ExerciceDTO dto;
+    Exercice entity;
+    Optional<Exercice> optionalExercice;
+
+    @BeforeAll
+    static void beforeAll() {
+        dto = ExerciceDTOTestData.defaultDTO();
+    }
+
+    @BeforeEach
+    void setUp() {
+        entity = mapper.asEntity(dto);
+        repository.deleteAll();
+        entity = repository.saveAndFlush(entity);
+    }
+
+    @Test
+    void FindByDates_thenResult() {
+        optionalExercice = repository.findByDates(entity.getStart(), entity.getEnd());
+        assertThat(optionalExercice)
+                .isNotNull()
+                .isPresent()
+                .get()
+                .usingRecursiveComparison()
+                .isEqualTo(entity);
+    }
+
+    @Test
+    void FindByBadDates_thenNotFound() {
+        optionalExercice = repository.findByDates(
+                Instant.ofEpochSecond(UUID.randomUUID().timestamp()),
+                Instant.ofEpochSecond(UUID.randomUUID().timestamp()));
+        assertThat(optionalExercice)
+                .isNotNull()
+                .isNotPresent();
+
+    }
 
 }

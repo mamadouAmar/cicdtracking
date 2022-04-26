@@ -36,7 +36,7 @@ public class TestData {
 
         public static final SocieteDTO societe = SocieteDTOTestData.defaultDTO();
 
-        public static  final UUID idSociete = SocieteDTOTestData.defaultDTO().getId();
+        public static  final UUID idSociete = societe.getId();
     }
 
 
