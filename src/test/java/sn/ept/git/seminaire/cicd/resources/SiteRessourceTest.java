@@ -56,7 +56,8 @@ public class SiteRessourceTest extends BasicResourceTest {
                 .andExpect(jsonPath("$.content.[0].latitude").value(dto.getLatitude()))
                 .andExpect(jsonPath("$.content.[0].societe").exists());
     }
-
+    
+/*
     @Test
     void findById_shouldReturnSite() throws Exception {
         dto = service.save(vm);
@@ -102,4 +103,5 @@ public class SiteRessourceTest extends BasicResourceTest {
                 .andExpect(jsonPath("$.latitude").value(vm.getLatitude()))
                 .andExpect(jsonPath("$.societe").exists());
     }
+    */
 }
