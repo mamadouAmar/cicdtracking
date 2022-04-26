@@ -138,11 +138,11 @@ pipeline {
                         
                          steps{
                 script{
-                    echo "testing if dev deployment is successfully done"
+                    echo "tester si le deploiement s'est bien passe"
                     sleep(time:1,unit:"MINUTES") 
                     echo "Run test"
                     final String url = "http://localhost:8083/tracking-dev/"
-                    final String response = sh(script: "curl -s $url", returnStdout: true).trim()
+                    final String response = bat(script: "curl -s $url", returnStdout: true).trim()
                     echo response
                     
                 }
@@ -169,13 +169,13 @@ pipeline {
                         branch 'release'
                     }
                    steps{
-                echo "testing if rec deployment is successfully done"
+                echo "tester si le deploiement s'est bien passe"
                 sleep(time:1,unit:"MINUTES") 
                 echo "Run test"
                 script {
                     final String url = "http://localhost:8083/tracking-dev/"
 
-                    final String response = sh(script: "curl -s $url", returnStdout: true).trim()
+                    final String response = bat(script: "curl -s $url", returnStdout: true).trim()
 
                     echo response
                 
@@ -188,7 +188,7 @@ pipeline {
          post {
             always{
                     bat 'mvn clean'
-                    emailext   attachLog:true, body: 'Votre pipiline du projet a été lancé', subject: 'Build', to: 'ndiayeoumarsahaba@ept.sn'
+                    emailext   attachLog:true, body: 'Votre pipeline du projet a été lancé', subject: 'Build', to: 'ndiayeoumarsahaba@ept.sn'
             }
             success{
                     emailext   attachLog:true ,body: 'Build success', subject: 'Build', to: 'ndiayeoumarsahaba@ept.sn'
