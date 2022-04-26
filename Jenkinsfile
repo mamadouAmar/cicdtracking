@@ -63,8 +63,7 @@ pipeline {
         }
         
         
-        stage('Paralel'){
-            parallel{
+        
 
                 stage('Quality gate') {
             steps {
@@ -142,8 +141,8 @@ pipeline {
                 
             }
                   }
-    }
-        }}
+    
+        }
          post {
             always{
                     bat 'mvn clean'
