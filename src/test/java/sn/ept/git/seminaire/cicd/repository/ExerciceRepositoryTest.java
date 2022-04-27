@@ -17,7 +17,7 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ExerciceRepositoryTest extends RepositoryBaseTest{
+class ExerciceRepositoryTest extends RepositoryBaseTest{
 
     @Autowired
     private ExerciceMapper mapper;

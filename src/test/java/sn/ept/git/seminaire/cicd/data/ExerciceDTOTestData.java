@@ -4,7 +4,7 @@ import sn.ept.git.seminaire.cicd.dto.ExerciceDTO;
 
 import java.time.Instant;
 
-public class ExerciceDTOTestData extends TestData{
+public final class ExerciceDTOTestData extends TestData{
 
     public  static ExerciceDTO defaultDTO(){
         return ExerciceDTO

@@ -28,7 +28,6 @@ class SocieteVMMapperTest extends MapperBaseTest {
     @Test
     void toEntityShouldReturnCorrectEntity() {
         entity = mapper.asEntity(vm);
-
         assertThat(entity)
                 .isNotNull()
                 .usingRecursiveComparison()

@@ -10,7 +10,7 @@ import sn.ept.git.seminaire.cicd.models.Site;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SiteDTOMapperTest extends MapperBaseTest{
+class SiteDTOMapperTest extends MapperBaseTest{
 
     SiteDTO dto;
 

@@ -22,6 +22,7 @@ import sn.ept.git.seminaire.cicd.mappers.vm.SocieteVMMapper;
 import sn.ept.git.seminaire.cicd.models.Exercice;
 import sn.ept.git.seminaire.cicd.models.Societe;
 import sn.ept.git.seminaire.cicd.repositories.ExerciceRepository;
+import sn.ept.git.seminaire.cicd.repositories.SocieteRepository;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -29,7 +30,7 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class ExerciceServiceTest extends ServiceBaseTest{
+class ExerciceServiceTest extends ServiceBaseTest{
 
     @Autowired
     protected ExerciceMapper mapper;
@@ -54,18 +55,21 @@ public class ExerciceServiceTest extends ServiceBaseTest{
     static SocieteVM societeVM;
 
     @Autowired
+    SocieteRepository societeRepository;
+
+    @Autowired
     ISocieteService societeService;
 
     @BeforeAll
     static void beforeAll(){
-        vm = ExerciceVMTestData.defaultVM();
         societeVM = SocieteVMTestData.defaultVM();
-        vm.setIdSociete(societeVM.getId());
+        vm = ExerciceVMTestData.exerciceVMLinkedWithSociete(societeVM.getId());
     }
 
     @Test
     void save_shouldSaveSite() {
         societeDTO = societeService.save(societeVM);
+        vm.setIdSociete(societeDTO.getId());
         dto = service.save(vm);
         assertThat(dto)
                 .isNotNull()
@@ -74,6 +78,8 @@ public class ExerciceServiceTest extends ServiceBaseTest{
 
     @Test
     void findById_shouldReturnResult() {
+        societeDTO = societeService.save(societeVM);
+        vm.setIdSociete(societeDTO.getId());
         dto =service.save(vm);
         final Optional<ExerciceDTO> optional = service.findById(dto.getId());
         assertThat(optional)
@@ -93,6 +99,8 @@ public class ExerciceServiceTest extends ServiceBaseTest{
 
     @Test
     void delete_shouldDeleteSociete() {
+        societeDTO = societeService.save(societeVM);
+        vm.setIdSociete(societeDTO.getId());
         dto = service.save(vm);
         long oldCount = exerciceRepository.count();
         service.delete(dto.getId());
