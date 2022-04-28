@@ -10,7 +10,7 @@ import sn.ept.git.seminaire.cicd.models.Exercice;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ExerciceDTOMapperTest extends MapperBaseTest{
+class ExerciceDTOMapperTest extends MapperBaseTest{
 
     ExerciceDTO dto;
 
@@ -40,7 +40,7 @@ public class ExerciceDTOMapperTest extends MapperBaseTest{
         dto = mapper.asDTO(entity);
         assertThat(dto)
                 .isNotNull()
-                .hasNoNullFieldsOrProperties()
+                .hasNoNullFieldsOrPropertiesExcept("societe")
                 .usingRecursiveComparison()
                 .ignoringFieldsMatchingRegexes("^_")
                 .withEqualsForFields((idOne, idTwo) -> {

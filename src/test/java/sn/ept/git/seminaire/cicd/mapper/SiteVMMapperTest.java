@@ -11,7 +11,7 @@ import sn.ept.git.seminaire.cicd.models.Site;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SiteVMMapperTest extends MapperBaseTest{
+class SiteVMMapperTest extends MapperBaseTest{
 
     static SiteVM vm;
 

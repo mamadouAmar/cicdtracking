@@ -26,7 +26,7 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class SiteServiceTest extends ServiceBaseTest {
+class SiteServiceTest extends ServiceBaseTest {
 
     @Autowired
     protected SiteMapper mapper;
@@ -44,18 +44,25 @@ public class SiteServiceTest extends ServiceBaseTest {
     @Autowired
     protected SocieteVMMapper societeVMMapper;
     static SiteVM vm;
+
+    static SocieteVM societeVM;
     SiteDTO dto;
+
+    SocieteDTO societeDTO;
 
     @Autowired
     ISocieteService societeService;
 
     @BeforeAll
     static void beforeAll(){
-        vm = SiteVMTestData.defaultVM();
+        societeVM = SocieteVMTestData.defaultVM();
+        vm = SiteVMTestData.siteVMLinkedWithSociete(societeVM.getId());
     }
 
     @Test
     void save_shouldSaveSite() {
+        societeDTO = societeService.save(societeVM);
+        vm.setIdSociete(societeDTO.getId());
         dto = service.save(vm);
         assertThat(dto)
                 .isNotNull()
@@ -64,6 +71,8 @@ public class SiteServiceTest extends ServiceBaseTest {
 
     @Test
     void save_withSameName_shouldThrowException() {
+        societeDTO = societeService.save(societeVM);
+        vm.setIdSociete(societeDTO.getId());
         dto = service.save(vm);
         vm.setEmail(TestData.Update.email);
         vm.setPhone(TestData.Update.phone);
@@ -74,18 +83,9 @@ public class SiteServiceTest extends ServiceBaseTest {
     }
 
     @Test
-    void save_withSameEmail_shouldThrowException() {
-        dto =service.save(vm);
-        vm.setPhone(TestData.Update.phone);
-        vm.setName(TestData.Update.name);
-        assertThrows(
-                ItemExistsException.class,
-                () -> service.save(vm)
-        );
-    }
-
-    @Test
     void findById_shouldReturnResult() {
+        societeDTO = societeService.save(societeVM);
+        vm.setIdSociete(societeDTO.getId());
         dto =service.save(vm);
         final Optional<SiteDTO> optional = service.findById(dto.getId());
         assertThat(optional)
@@ -105,6 +105,8 @@ public class SiteServiceTest extends ServiceBaseTest {
 
     @Test
     void delete_shouldDeleteSociete() {
+        societeDTO = societeService.save(societeVM);
+        vm.setIdSociete(societeDTO.getId());
         dto = service.save(vm);
         long oldCount = siteRepository.count();
         service.delete(dto.getId());
